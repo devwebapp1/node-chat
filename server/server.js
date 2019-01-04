@@ -23,6 +23,11 @@ io.on('connection', (socket) => {
 		io.emit("newMessage",generateMessage.generateMessage(msg.from, msg.text));
 		callback();
 	})
+	//send location to all users
+	socket.on('createLocationMessage', (coords) => {
+			io.emit('newLocationMessage',
+			generateMessage.generateLocationMessage('Admin', coords.latitude, coords.longitude))
+	});
 
 	socket.on('disconnect', (client) => {
 		console.log(`client ${client} disconnected`);
